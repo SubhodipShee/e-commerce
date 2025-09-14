@@ -39,17 +39,20 @@ Clone the repo and install dependencies for both frontend and backend ,
 # for backend 
 cd backend
 npm install
-npm start
-
+npm run dev
+```
+```bash
 # for frontend
 cd frontend
 npm install
 npm start
-
+```
+```bash
 # tips for env files
 MONGO_URI=your_mongo_db_connection_string
 JWT_SECRET=your_secret_key
 CLOUDINARY_SECRET=your_secret
+```
 
 
 
