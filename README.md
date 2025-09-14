@@ -34,14 +34,24 @@ It provides a smooth shopping experience for users and a powerful admin panel fo
 
 ## ⚙️ Installation & Setup  
 
-Clone the repo and install dependencies for both frontend and backend:  
-
+Clone the repo and install dependencies for both frontend and backend , 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/electroplaza.git
+# for backend 
+cd backend
+npm install
+npm start
 
-# Navigate into project folder
-cd electroplaza
+# for frontend
+cd frontend
+npm install
+npm start
+
+# tips for env files
+MONGO_URI=your_mongo_db_connection_string
+JWT_SECRET=your_secret_key
+CLOUDINARY_SECRET=your_secret
 
 
-![image alt](https://github.com/SubhodipShee/e-commerce/blob/main/React%20App_page-0001.jpg?raw=true)
+
+
+
