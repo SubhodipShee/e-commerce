@@ -2,6 +2,7 @@
 
 ElectroPlaza is a full-stack **e-commerce website for electronics**, built with the MERN stack (MongoDB, Express.js, React, Node.js).  
 It provides a smooth shopping experience for users and a powerful admin panel for managing products.  
+Link - https://e-commerce-frontend-xgf2.onrender.com
 
 ---
 
