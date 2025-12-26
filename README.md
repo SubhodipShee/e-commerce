@@ -27,7 +27,7 @@ Link - https://e-commerce-frontend-xgf2.onrender.com
 
 - **Frontend:** React.js, React Router,Tailwind CSS  
 - **Backend:** Node.js, Express.js  
-- **Database:** MongoDB (Atlas or Local)  
+- **Database:** MongoDB (Atlas)  
 - **Authentication:** JWT / Cookies  
 - **Other:** Cloudinary / Multer (for product images), REST APIs  
 
