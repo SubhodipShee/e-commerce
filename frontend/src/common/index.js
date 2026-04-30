@@ -1,6 +1,10 @@
 
 
+<<<<<<< HEAD
 const backendDomin = "https://e-commerce-backend-rem3.onrender.com"
+=======
+// const backendDomin = "http://localhost:7070" // replace with backend domain during deployment
+>>>>>>> 2ab38b8 (WIP: saving local changes before pull)
 
 const SummaryApi = {
     signUP : {
