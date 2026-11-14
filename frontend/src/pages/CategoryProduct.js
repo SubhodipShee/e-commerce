@@ -79,12 +79,13 @@ const CategoryProduct = () => {
 
     setSortBy(value)
 
+    // copy the array before sorting, so React detects the change and re-renders
     if(value === 'asc'){
-      setData(preve => preve.sort((a,b)=>a.sellingPrice - b.sellingPrice))
+      setData(preve => [...preve].sort((a,b)=>a.sellingPrice - b.sellingPrice))
     }
 
     if(value === 'dsc'){
-      setData(preve => preve.sort((a,b)=>b.sellingPrice - a.sellingPrice))
+      setData(preve => [...preve].sort((a,b)=>b.sellingPrice - a.sellingPrice))
     }
   }
 

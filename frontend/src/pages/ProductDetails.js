@@ -43,11 +43,11 @@ const ProductDetails = () => {
         productId : params?.id
       })
     })
-    setLoading(false)
     const dataReponse = await response.json()
 
     setData(dataReponse?.data)
     setActiveImage(dataReponse?.data?.productImage[0])
+    setLoading(false)
 
   }
   console.log("data",data)

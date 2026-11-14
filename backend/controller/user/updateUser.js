@@ -13,9 +13,11 @@ async function updateUser(req,res){
         }
         const user = await userModel.findById(sessionUser)
 
-        console.log("user.role",user.role)
+        if(user?.role !== 'ADMIN'){
+            throw new Error("Permission denied")
+        }
 
-        const updateUser = await userModel.findByIdAndUpdate(userId,payload)
+        const updateUser = await userModel.findByIdAndUpdate(userId,payload).select("-password")
 
         
         res.json({

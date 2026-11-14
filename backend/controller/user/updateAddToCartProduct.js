@@ -7,7 +7,7 @@ const updateAddToCartProduct = async(req,res)=>{
 
         const qty = req.body.quantity
 
-        const updateProduct = await addToCartModel.updateOne({_id : addToCartProductId},{
+        const updateProduct = await addToCartModel.updateOne({_id : addToCartProductId, userId : currentUserId},{
             ...(qty && {quantity : qty})
         })
 

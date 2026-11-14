@@ -8,9 +8,6 @@ async function userSignUpController(req,res){
 
         const user = await userModel.findOne({email})
 
-        console.log("user",user)
-
-
         if(user){
             throw new Error("Already user exits.")
         }
@@ -44,9 +41,12 @@ async function userSignUpController(req,res){
         const userData = new userModel(payload)
         const saveUser = await userData.save()
 
+        // do not send password hash to the client
+        const userResponse = saveUser.toObject()
+        delete userResponse.password
 
         res.status(201).json({
-            data : saveUser,
+            data : userResponse,
             success : true,
             error : false,
             message : "User created Successfully!"

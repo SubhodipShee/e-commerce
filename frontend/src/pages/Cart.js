@@ -30,14 +30,13 @@ const Cart = () => {
     }
 
     const handleLoading = async() =>{
+        setLoading(true)
         await fetchData()
+        setLoading(false)
     }
 
     useEffect(()=>{
-        setLoading(true)
         handleLoading()
-         setLoading(false)
-        
     },[])
 
     const increaseQty = async(id,qty) =>{

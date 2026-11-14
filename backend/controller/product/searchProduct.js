@@ -2,9 +2,12 @@ const productModel = require("../../models/productModel")
 
 const searchProduct = async(req,res)=>{
     try{
-        const query = req.query.q 
-        
-        const regex = new RegExp(query,'i','g')
+        const query = req.query.q || ""
+
+        // escape special characters so the search text is matched as plain text
+        const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+        const regex = new RegExp(safeQuery,'i')
 
         const product = await productModel.find({
             "$or" : [

@@ -1,10 +1,14 @@
 const userModel = require("../../models/userModel")
+const uploadProductPermission = require("../../helpers/permission")
 
 
 async function allUsers(req,res){
     try{
-        console.log("userid all Users",req.userId)
-        const allUsers = await userModel.find()
+        if(!await uploadProductPermission(req.userId)){
+            throw new Error("Permission denied")
+        }
+
+        const allUsers = await userModel.find().select("-password")
 
         res.json({
             message : "All User ",
