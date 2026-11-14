@@ -25,7 +25,7 @@ const OrderPage = () => {
 
   return (
     <div className='container mx-auto p-4'>
-      <h2 className='text-2xl font-semibold py-4'>My Orders</h2>
+      <h2 className='sectionHeading'>My Orders</h2>
 
       {
         loading && (
@@ -35,7 +35,7 @@ const OrderPage = () => {
 
       {
         !loading && data.length === 0 && (
-          <p className='bg-white text-lg text-center p-4'>No Order Found</p>
+          <p className='bg-white text-lg text-center p-8 rounded-xl border border-slate-100 text-slate-500'>No Order Found</p>
         )
       }
 
@@ -43,7 +43,7 @@ const OrderPage = () => {
         {
           data.map((order)=>{
             return(
-              <div className='bg-white rounded p-4' key={order._id}>
+              <div className='bg-white rounded-xl border border-slate-100 shadow-sm p-4' key={order._id}>
                 <div className='flex flex-wrap justify-between gap-2 border-b pb-2'>
                   <p className='font-medium'>{moment(order.createdAt).format('LL')}</p>
                   <p>Status : <span className='font-semibold text-purple-600'>{order.orderStatus}</span></p>
@@ -62,7 +62,7 @@ const OrderPage = () => {
                     order.productDetails.map((product,index)=>{
                       return(
                         <div className='grid grid-cols-[80px,1fr] gap-3' key={product.productId+index}>
-                          <div className='w-20 h-20 bg-slate-200'>
+                          <div className='w-20 h-20 bg-slate-50 rounded-lg p-1'>
                             <img src={optimizeImage(product.productImage,150)} alt={product.productName} className='w-full h-full object-scale-down mix-blend-multiply'/>
                           </div>
                           <div>

@@ -36,7 +36,7 @@ const ForgotPassword = () => {
   return (
     <section id='forgot-password'>
       <div className='mx-auto container p-4'>
-        <div className='bg-white px-2 py-5 w-full max-w-sm mx-auto'>
+        <div className='bg-white p-6 md:p-8 w-full max-w-sm mx-auto mt-6 rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/60'>
           <div className='w-20 h-20 mx-auto'>
             <img src={forgotPasswordIcon} alt='forgot password icon'/>
           </div>
@@ -48,7 +48,7 @@ const ForgotPassword = () => {
               <form className='pt-6 flex flex-col gap-2' onSubmit={handleSubmit}>
                 <div className='grid'>
                   <label>Email : </label>
-                  <div className='bg-slate-100 p-2 flex'>
+                  <div className='bg-slate-50 border border-slate-200 rounded-lg p-2.5 flex transition focus-within:bg-white focus-within:ring-2 focus-within:ring-purple-500'>
                     <input type='email'
                       placeholder='enter your registered email'
                       name='email'

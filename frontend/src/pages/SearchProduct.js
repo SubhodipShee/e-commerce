@@ -38,7 +38,7 @@ const SearchProduct = () => {
         <p className='text-lg font-semibold my-3'>Search Results : {data.length}</p>
         {
             data.length === 0 && !loading && (
-                <p className='bg-white text-lg text-center p-4'>No Data Found....</p>
+                <p className='bg-white text-lg text-center p-8 rounded-xl border border-slate-100 text-slate-500'>No products found. Try a different search.</p>
             )
         }
 

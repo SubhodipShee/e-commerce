@@ -52,11 +52,11 @@ const ProductReview = ({ productId, reviewData, fetchReview }) => {
 
   return (
     <div className='my-6'>
-      <h2 className='text-2xl font-semibold py-4'>Ratings & Reviews</h2>
+      <h2 className='sectionHeading'>Ratings & Reviews</h2>
 
       <div className='flex flex-col lg:flex-row gap-6'>
         {/**write review */}
-        <div className='bg-white p-4 rounded w-full lg:max-w-sm h-fit'>
+        <div className='bg-white p-4 rounded-xl border border-slate-100 shadow-sm w-full lg:max-w-sm h-fit'>
           {
             user?._id ? (
               <form className='grid gap-2' onSubmit={handleSubmit}>
@@ -75,14 +75,14 @@ const ProductReview = ({ productId, reviewData, fetchReview }) => {
                 </div>
 
                 <textarea
-                  className='h-24 bg-slate-100 border resize-none p-1'
+                  className='h-24 bg-slate-50 border border-slate-200 rounded-lg resize-none p-2 focus:outline-none focus:ring-2 focus:ring-purple-500'
                   placeholder='share your experience with this product'
                   value={comment}
                   maxLength={1000}
                   onChange={(e)=>setComment(e.target.value)}
                 />
 
-                <button className='bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded'>
+                <button className='bg-purple-600 hover:bg-purple-700 active:scale-95 transition text-white font-medium px-3 py-2 rounded-full'>
                   { myReview ? "Update Review" : "Submit Review" }
                 </button>
               </form>
@@ -96,14 +96,14 @@ const ProductReview = ({ productId, reviewData, fetchReview }) => {
         <div className='w-full grid gap-3 h-fit'>
           {
             reviewData.totalReview === 0 && (
-              <p className='bg-white p-4'>No reviews yet. Be the first to review this product.</p>
+              <p className='bg-white p-4 rounded-xl border border-slate-100 text-slate-500'>No reviews yet. Be the first to review this product.</p>
             )
           }
 
           {
             reviewData.reviews.map(review =>{
               return(
-                <div className='bg-white p-4 rounded' key={review._id}>
+                <div className='bg-white p-4 rounded-xl border border-slate-100 shadow-sm' key={review._id}>
                   <div className='flex items-center justify-between gap-2'>
                     <p className='font-medium capitalize'>{review?.userId?.name}</p>
                     <p className='text-sm text-slate-500'>{new Date(review.createdAt).toLocaleDateString('en-IN')}</p>

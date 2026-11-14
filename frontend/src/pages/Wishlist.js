@@ -53,7 +53,7 @@ const Wishlist = () => {
 
   return (
     <div className='container mx-auto p-4'>
-        <h2 className='text-2xl font-semibold py-4'>My Wishlist</h2>
+        <h2 className='sectionHeading'>My Wishlist</h2>
 
         {
             loading && (
@@ -63,7 +63,7 @@ const Wishlist = () => {
 
         {
             !loading && data.length === 0 && (
-                <p className='bg-white text-lg text-center p-4'>Your wishlist is empty</p>
+                <p className='bg-white text-lg text-center p-8 rounded-xl border border-slate-100 text-slate-500'>Your wishlist is empty</p>
             )
         }
 
@@ -71,8 +71,8 @@ const Wishlist = () => {
             {
                 data.map(product =>{
                     return(
-                        <div className='w-full bg-white h-32 border border-slate-300 rounded grid grid-cols-[128px,1fr]' key={product._id}>
-                            <Link to={"/product/"+product.productId._id} className='w-32 h-32 bg-slate-200'>
+                        <div className='w-full bg-white h-32 border border-slate-100 shadow-sm rounded-xl overflow-hidden grid grid-cols-[128px,1fr]' key={product._id}>
+                            <Link to={"/product/"+product.productId._id} className='w-32 h-32 bg-slate-50 p-2'>
                                 <img src={optimizeImage(product.productId.productImage[0],250)} alt={product.productId.productName} className='w-full h-full object-scale-down mix-blend-multiply'/>
                             </Link>
                             <div className='px-4 py-2 relative'>

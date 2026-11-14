@@ -17,6 +17,11 @@ body {
   @apply bg-purple-200 text-purple-900
 }
 
+/* purple checkboxes and radio buttons */
+input[type='checkbox'], input[type='radio'] {
+  @apply accent-purple-600
+}
+
 /* visible focus ring for keyboard users */
 :focus-visible {
   @apply outline-none ring-2 ring-purple-500 ring-offset-2

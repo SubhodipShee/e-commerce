@@ -123,7 +123,7 @@ return (
      {/***filters on the left for desktop, on top for mobile */}
      <div className='grid lg:grid-cols-[200px,1fr] gap-4 lg:gap-0'>
          {/***left side */}
-         <div className='bg-white p-2 lg:min-h-[calc(100vh-120px)] lg:overflow-y-scroll'>
+         <div className='bg-white p-3 rounded-xl border border-slate-100 shadow-sm lg:min-h-[calc(100vh-120px)] lg:overflow-y-auto'>
               {/**sort by */}
               <div className=''>
                   <h3 className='text-base uppercase font-medium text-slate-500 border-b pb-1 border-slate-300'>Sort by</h3>

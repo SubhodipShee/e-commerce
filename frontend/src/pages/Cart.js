@@ -186,7 +186,7 @@ const Cart = () => {
       <div className='text-center text-lg my-3'>
       {
         data.length === 0 && !loading && (
-            <p className='bg-white py-5'>No Data</p>
+            <p className='bg-white py-8 rounded-xl border border-slate-100 text-slate-500'>Your cart is empty</p>
         )
       }
       </div>
@@ -198,32 +198,32 @@ const Cart = () => {
                 loading?(
                     loadingCart?.map((el,index)=> {
                         return(
-                            <div key={el+"Add To Cart Loading"+index} className='w-full bg-slate-200 h-32 my-2 border border-slate-300 animate-pulse rounded'>
+                            <div key={el+"Add To Cart Loading"+index} className='w-full bg-slate-200 h-32 my-3 animate-pulse rounded-xl'>
                             </div>
                         )
                     })
                     ) : (
                         data.map((product,index)=>{
                             return(
-                                <div key={product?._id+"Add To Cart Loading"} className='w-full bg-white h-32 my-2 border border-slate-300 rounded grid grid-cols-[128px,1fr]'>
-                                    <div className='w-32 h-32 bg-slate-200'>
-                                        <img src={optimizeImage(product?.productId?.productImage[0],250)} className='w-full h-full object-scale-down mix-blend-multiply'/>
+                                <div key={product?._id+"Add To Cart Loading"} className='w-full bg-white h-32 my-3 border border-slate-100 shadow-sm rounded-xl overflow-hidden grid grid-cols-[128px,1fr]'>
+                                    <div className='w-32 h-32 bg-slate-50 p-2'>
+                                        <img src={optimizeImage(product?.productId?.productImage[0],250)} alt={product?.productId?.productName} className='w-full h-full object-scale-down mix-blend-multiply'/>
                                     </div>
                                     <div className='px-4 py-2 relative'>
                                          {/**delete product */}
-                                        <div className='absolute right-0 text-red-600 rounded-full p-2 hover:bg-red-600 hover:text-white cursor-pointer' onClick={()=>deleteCartProduct(product?._id)}>
+                                        <div className='absolute right-1 top-1 text-red-500 rounded-full p-2 hover:bg-red-500 hover:text-white cursor-pointer transition' onClick={()=>deleteCartProduct(product?._id)}>
                                             <MdDelete/>
                                         </div>
-                                        <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1'>{product?.productId?.productName}</h2>
-                                        <p className='capitalize text-slate-500'>{product?.productId.category}</p>
+                                        <h2 className='text-base lg:text-lg font-semibold text-ellipsis line-clamp-1 pr-8'>{product?.productId?.productName}</h2>
+                                        <p className='capitalize text-sm text-slate-500'>{product?.productId.category}</p>
                                         <div className='flex items-center justify-between'>
-                                            <p className='text-green-600 font-medium text-lg'>{displayINRCurrency(product?.productId?.sellingPrice)}</p>
-                                            <p className='text-slate-600 font-semibold text-lg'>{displayINRCurrency(product?.productId?.sellingPrice  * product?.quantity)}</p>
+                                            <p className='text-slate-500 font-medium'>{displayINRCurrency(product?.productId?.sellingPrice)}</p>
+                                            <p className='text-slate-900 font-bold text-lg'>{displayINRCurrency(product?.productId?.sellingPrice  * product?.quantity)}</p>
                                         </div>
                                         <div className='flex items-center gap-3 mt-1'>
-                                            <button className='border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' onClick={()=>decraseQty(product?._id,product?.quantity)}>-</button>
-                                            <span>{product?.quantity}</span>
-                                            <button className='border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' onClick={()=>increaseQty(product?._id,product?.quantity)}>+</button>
+                                            <button className='border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white w-7 h-7 flex justify-center items-center rounded-full transition active:scale-90' onClick={()=>decraseQty(product?._id,product?.quantity)}>-</button>
+                                            <span className='font-semibold w-4 text-center'>{product?.quantity}</span>
+                                            <button className='border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white w-7 h-7 flex justify-center items-center rounded-full transition active:scale-90' onClick={()=>increaseQty(product?._id,product?.quantity)}>+</button>
                                         </div> 
                                     </div> 
                                 </div> 
@@ -239,7 +239,7 @@ const Cart = () => {
          {/***delivery address */}
          {
             !loading && data.length > 0 && (
-                <div className='bg-white p-4 mb-4'>
+                <div className='bg-white p-4 mb-4 rounded-xl border border-slate-100 shadow-sm'>
                     <div className='flex items-center justify-between'>
                         <h3 className='font-semibold'>Deliver to</h3>
                         <Link to={"/profile"} className='text-sm text-purple-600 hover:underline'>{ user?.address?.pincode ? "Change" : "Add address" }</Link>
@@ -260,21 +260,22 @@ const Cart = () => {
          }
          {
             loading ?(
-                <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>
-                total
+                <div className='h-40 bg-slate-200 animate-pulse rounded-xl'>
                 </div>
             ):(
-                <div className='h-36 bg-white'>
-                    <h2 className='text-white bg-green-600 px-4 py-1'>Total</h2>
-                    <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                <div className='bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden lg:sticky lg:top-24'>
+                    <h2 className='text-white bg-purple-600 px-4 py-2 font-semibold'>Order Summary</h2>
+                    <div className='flex items-center justify-between px-4 pt-3 gap-2 font-medium text-slate-600'>
                         <p>Quantity</p>
                         <p>{totalQty}</p>
-                    </div>  
-                    <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
+                    </div>
+                    <div className='flex items-center justify-between px-4 py-2 gap-2 font-bold text-lg text-slate-900'>
                         <p>Total Price</p>
-                        <p>{displayINRCurrency(totalPrice)}</p>    
-                    </div> 
-                    <button className='bg-blue-500 p-2 text-white w-full mt-2' onClick={handlePayment}>Payment</button>
+                        <p>{displayINRCurrency(totalPrice)}</p>
+                    </div>
+                    <div className='p-4 pt-1'>
+                        <button className='bg-purple-600 hover:bg-purple-700 active:scale-95 transition rounded-full p-3 text-white font-semibold w-full shadow-lg shadow-purple-600/30' onClick={handlePayment}>Proceed to Pay</button>
+                    </div>
                 </div>
             )
          }

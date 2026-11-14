@@ -156,18 +156,18 @@ const Profile = () => {
   if(!user?._id){
     return (
       <div className='container mx-auto p-4'>
-        <p className='bg-white text-lg text-center p-4'>Please <Link to={"/login"} className='text-red-600 hover:text-red-700 hover:underline'>login</Link> to see your profile</p>
+        <p className='bg-white text-lg text-center p-8 rounded-xl border border-slate-100'>Please <Link to={"/login"} className='text-red-600 hover:text-red-700 hover:underline'>login</Link> to see your profile</p>
       </div>
     )
   }
 
   return (
     <div className='container mx-auto p-4'>
-      <h2 className='text-2xl font-semibold py-4'>My Profile</h2>
+      <h2 className='sectionHeading'>My Profile</h2>
 
       <div className='grid lg:grid-cols-2 gap-6 max-w-4xl'>
         {/**profile details */}
-        <form className='bg-white p-4 rounded grid gap-2 h-fit' onSubmit={handleUpdateProfile}>
+        <form className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm grid gap-2 h-fit' onSubmit={handleUpdateProfile}>
           <div className='w-20 h-20 mx-auto relative overflow-hidden rounded-full bg-slate-200 flex items-center justify-center text-5xl'>
             {
               profile.profilePic ? (
@@ -183,39 +183,39 @@ const Profile = () => {
           </div>
 
           <label>Name : </label>
-          <input type='text' name='name' value={profile.name} onChange={(e)=>setProfile(preve => ({ ...preve, name : e.target.value }))} required className='p-2 bg-slate-100 border rounded'/>
+          <input type='text' name='name' value={profile.name} onChange={(e)=>setProfile(preve => ({ ...preve, name : e.target.value }))} required className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
 
           <label>Email : </label>
           <input type='email' value={user?.email} disabled className='p-2 bg-slate-100 border rounded text-slate-500'/>
 
-          <button className='bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded mt-2'>Save Profile</button>
+          <button className='bg-purple-600 hover:bg-purple-700 active:scale-95 transition text-white font-medium px-3 py-2.5 rounded-full mt-2'>Save Profile</button>
         </form>
 
         {/**change password */}
-        <form className='bg-white p-4 rounded grid gap-2 h-fit' onSubmit={handleChangePassword}>
+        <form className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm grid gap-2 h-fit' onSubmit={handleChangePassword}>
           <h3 className='font-semibold text-lg'>Change Password</h3>
 
           <label>Old Password : </label>
-          <input type='password' name='oldPassword' value={password.oldPassword} onChange={handleOnChangePassword} required className='p-2 bg-slate-100 border rounded'/>
+          <input type='password' name='oldPassword' value={password.oldPassword} onChange={handleOnChangePassword} required className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
 
           <label>New Password : </label>
-          <input type='password' name='newPassword' value={password.newPassword} onChange={handleOnChangePassword} required className='p-2 bg-slate-100 border rounded'/>
+          <input type='password' name='newPassword' value={password.newPassword} onChange={handleOnChangePassword} required className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
 
           <label>Confirm New Password : </label>
-          <input type='password' name='confirmPassword' value={password.confirmPassword} onChange={handleOnChangePassword} required className='p-2 bg-slate-100 border rounded'/>
+          <input type='password' name='confirmPassword' value={password.confirmPassword} onChange={handleOnChangePassword} required className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
 
-          <button className='bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded mt-2'>Change Password</button>
+          <button className='bg-purple-600 hover:bg-purple-700 active:scale-95 transition text-white font-medium px-3 py-2.5 rounded-full mt-2'>Change Password</button>
         </form>
 
         {/**delivery address */}
-        <form className='bg-white p-4 rounded grid gap-2 h-fit' id='address' onSubmit={handleSaveAddress}>
+        <form className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm grid gap-2 h-fit' id='address' onSubmit={handleSaveAddress}>
           <h3 className='font-semibold text-lg'>Delivery Address</h3>
 
           <label>Full Name : </label>
-          <input type='text' name='fullName' value={address.fullName} onChange={handleOnChangeAddress} required className='p-2 bg-slate-100 border rounded'/>
+          <input type='text' name='fullName' value={address.fullName} onChange={handleOnChangeAddress} required className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
 
           <label>Phone : </label>
-          <input type='tel' name='phone' value={address.phone} onChange={handleOnChangeAddress} required pattern='[0-9]{10}' title='10 digit phone number' placeholder='10 digit mobile number' className='p-2 bg-slate-100 border rounded'/>
+          <input type='tel' name='phone' value={address.phone} onChange={handleOnChangeAddress} required pattern='[0-9]{10}' title='10 digit phone number' placeholder='10 digit mobile number' className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
 
           <label>Address (house no, street, area) : </label>
           <textarea name='addressLine' value={address.addressLine} onChange={handleOnChangeAddress} required className='h-20 bg-slate-100 border resize-none p-2 rounded'/>
@@ -223,18 +223,18 @@ const Profile = () => {
           <div className='grid grid-cols-2 gap-2'>
             <div className='grid gap-1'>
               <label>City : </label>
-              <input type='text' name='city' value={address.city} onChange={handleOnChangeAddress} required className='p-2 bg-slate-100 border rounded'/>
+              <input type='text' name='city' value={address.city} onChange={handleOnChangeAddress} required className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
             </div>
             <div className='grid gap-1'>
               <label>State : </label>
-              <input type='text' name='state' value={address.state} onChange={handleOnChangeAddress} required className='p-2 bg-slate-100 border rounded'/>
+              <input type='text' name='state' value={address.state} onChange={handleOnChangeAddress} required className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
             </div>
           </div>
 
           <label>Pincode : </label>
-          <input type='text' name='pincode' value={address.pincode} onChange={handleOnChangeAddress} required pattern='[0-9]{6}' title='6 digit pincode' className='p-2 bg-slate-100 border rounded'/>
+          <input type='text' name='pincode' value={address.pincode} onChange={handleOnChangeAddress} required pattern='[0-9]{6}' title='6 digit pincode' className='p-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500'/>
 
-          <button className='bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded mt-2'>Save Address</button>
+          <button className='bg-purple-600 hover:bg-purple-700 active:scale-95 transition text-white font-medium px-3 py-2.5 rounded-full mt-2'>Save Address</button>
         </form>
       </div>
     </div>
