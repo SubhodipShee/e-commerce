@@ -20,12 +20,28 @@ const Profile = () => {
     newPassword : "",
     confirmPassword : ""
   })
+  const [address,setAddress] = useState({
+    fullName : "",
+    phone : "",
+    addressLine : "",
+    city : "",
+    state : "",
+    pincode : ""
+  })
 
-  // fill the form with current user details
+  // fill the forms with current user details
   useEffect(()=>{
     setProfile({
       name : user?.name || "",
       profilePic : user?.profilePic || ""
+    })
+    setAddress({
+      fullName : user?.address?.fullName || "",
+      phone : user?.address?.phone || "",
+      addressLine : user?.address?.addressLine || "",
+      city : user?.address?.city || "",
+      state : user?.address?.state || "",
+      pincode : user?.address?.pincode || ""
     })
   },[user])
 
@@ -104,6 +120,39 @@ const Profile = () => {
     }
   }
 
+  const handleOnChangeAddress = (e)=>{
+    const { name, value } = e.target
+
+    setAddress((preve)=>{
+      return{
+        ...preve,
+        [name] : value
+      }
+    })
+  }
+
+  const handleSaveAddress = async(e)=>{
+    e.preventDefault()
+
+    const response = await fetch(SummaryApi.updateAddress.url,{
+      method : SummaryApi.updateAddress.method,
+      credentials : 'include',
+      headers : {
+        "content-type" : "application/json"
+      },
+      body : JSON.stringify(address)
+    })
+    const responseData = await response.json()
+
+    if(responseData.success){
+      toast.success(responseData.message)
+      fetchUserDetails()
+    }
+    if(responseData.error){
+      toast.error(responseData.message)
+    }
+  }
+
   if(!user?._id){
     return (
       <div className='container mx-auto p-4'>
@@ -156,6 +205,36 @@ const Profile = () => {
           <input type='password' name='confirmPassword' value={password.confirmPassword} onChange={handleOnChangePassword} required className='p-2 bg-slate-100 border rounded'/>
 
           <button className='bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded mt-2'>Change Password</button>
+        </form>
+
+        {/**delivery address */}
+        <form className='bg-white p-4 rounded grid gap-2 h-fit' id='address' onSubmit={handleSaveAddress}>
+          <h3 className='font-semibold text-lg'>Delivery Address</h3>
+
+          <label>Full Name : </label>
+          <input type='text' name='fullName' value={address.fullName} onChange={handleOnChangeAddress} required className='p-2 bg-slate-100 border rounded'/>
+
+          <label>Phone : </label>
+          <input type='tel' name='phone' value={address.phone} onChange={handleOnChangeAddress} required pattern='[0-9]{10}' title='10 digit phone number' placeholder='10 digit mobile number' className='p-2 bg-slate-100 border rounded'/>
+
+          <label>Address (house no, street, area) : </label>
+          <textarea name='addressLine' value={address.addressLine} onChange={handleOnChangeAddress} required className='h-20 bg-slate-100 border resize-none p-2 rounded'/>
+
+          <div className='grid grid-cols-2 gap-2'>
+            <div className='grid gap-1'>
+              <label>City : </label>
+              <input type='text' name='city' value={address.city} onChange={handleOnChangeAddress} required className='p-2 bg-slate-100 border rounded'/>
+            </div>
+            <div className='grid gap-1'>
+              <label>State : </label>
+              <input type='text' name='state' value={address.state} onChange={handleOnChangeAddress} required className='p-2 bg-slate-100 border rounded'/>
+            </div>
+          </div>
+
+          <label>Pincode : </label>
+          <input type='text' name='pincode' value={address.pincode} onChange={handleOnChangeAddress} required pattern='[0-9]{6}' title='6 digit pincode' className='p-2 bg-slate-100 border rounded'/>
+
+          <button className='bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded mt-2'>Save Address</button>
         </form>
       </div>
     </div>

@@ -1,10 +1,17 @@
 const Razorpay = require('razorpay')
 const addToCartModel = require("../../models/cartProduct")
 const orderModel = require("../../models/orderModel")
+const userModel = require("../../models/userModel")
 
 const createOrderController = async(req,res)=>{
     try{
         const currentUser = req.userId
+
+        const user = await userModel.findById(currentUser).select("address").lean()
+
+        if(!user?.address?.pincode){
+            throw new Error("Please add your delivery address in My Profile before payment")
+        }
 
         const cartProduct = await addToCartModel.find({ userId : currentUser })
             .populate("productId","productName productImage sellingPrice stock")
@@ -53,6 +60,7 @@ const createOrderController = async(req,res)=>{
             userId : currentUser,
             productDetails : productDetails,
             totalAmount : totalAmount,
+            shippingAddress : user.address,
             razorpayOrderId : razorpayOrder.id
         })
         const saveOrder = await newOrder.save()

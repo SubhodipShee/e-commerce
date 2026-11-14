@@ -38,6 +38,10 @@ const SummaryApi = {
         url : `${backendDomin}/api/change-password`,
         method : 'post'
     },
+    updateAddress : {
+        url : `${backendDomin}/api/update-address`,
+        method : 'post'
+    },
     allUser : {
         url : `${backendDomin}/api/all-user`,
         method : 'get'

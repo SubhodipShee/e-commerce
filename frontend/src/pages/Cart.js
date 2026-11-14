@@ -7,7 +7,7 @@ import optimizeImage from '../helpers/optimizeImage'
 import loadRazorpayScript from '../helpers/loadRazorpayScript'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const Cart = () => {
@@ -236,6 +236,28 @@ const Cart = () => {
 
          {/***summary  */}
          <div className='mt-5 lg:mt-0 w-full max-w-sm'>
+         {/***delivery address */}
+         {
+            !loading && data.length > 0 && (
+                <div className='bg-white p-4 mb-4'>
+                    <div className='flex items-center justify-between'>
+                        <h3 className='font-semibold'>Deliver to</h3>
+                        <Link to={"/profile"} className='text-sm text-purple-600 hover:underline'>{ user?.address?.pincode ? "Change" : "Add address" }</Link>
+                    </div>
+                    {
+                        user?.address?.pincode ? (
+                            <div className='text-sm text-slate-600 mt-1'>
+                                <p className='font-medium text-slate-800'>{user.address.fullName}, {user.address.phone}</p>
+                                <p>{user.address.addressLine}</p>
+                                <p>{user.address.city}, {user.address.state} - {user.address.pincode}</p>
+                            </div>
+                        ) : (
+                            <p className='text-sm text-red-600 mt-1'>Please add a delivery address before payment</p>
+                        )
+                    }
+                </div>
+            )
+         }
          {
             loading ?(
                 <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>

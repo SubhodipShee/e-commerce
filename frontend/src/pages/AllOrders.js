@@ -74,6 +74,13 @@ const AllOrders = () => {
                   <td>
                     <p>{order?.userId?.name}</p>
                     <p className='text-sm text-slate-500'>{order?.userId?.email}</p>
+                    {
+                      order.shippingAddress?.pincode && (
+                        <p className='text-xs text-slate-500'>
+                          {order.shippingAddress.addressLine}, {order.shippingAddress.city} - {order.shippingAddress.pincode}, {order.shippingAddress.phone}
+                        </p>
+                      )
+                    }
                   </td>
                   <td className='text-left px-2'>
                     {

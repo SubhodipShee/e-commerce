@@ -7,6 +7,7 @@ const orderSchema = mongoose.Schema({
     },
     productDetails : [],    // copy of cart products at the time of order (name, image, price, quantity)
     totalAmount : Number,
+    shippingAddress : {},   // copy of user's delivery address at the time of order
     razorpayOrderId : String,
     razorpayPaymentId : String,
     paymentStatus : {

@@ -10,6 +10,15 @@ const userSchema = new mongoose.Schema({
     password :String,
     profilePic : String,
     role: String,
+    // delivery address used at checkout
+    address : {
+        fullName : String,
+        phone : String,
+        addressLine : String,
+        city : String,
+        state : String,
+        pincode : String
+    },
     // used by forgot password, select:false keeps them out of every API response
     resetPasswordToken : {
         type : String,

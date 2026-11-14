@@ -49,6 +49,14 @@ const OrderPage = () => {
                   <p>Status : <span className='font-semibold text-purple-600'>{order.orderStatus}</span></p>
                 </div>
 
+                {
+                  order.shippingAddress?.pincode && (
+                    <p className='text-sm text-slate-600 pt-2'>
+                      Deliver to : {order.shippingAddress.fullName}, {order.shippingAddress.addressLine}, {order.shippingAddress.city}, {order.shippingAddress.state} - {order.shippingAddress.pincode}
+                    </p>
+                  )
+                }
+
                 <div className='grid gap-3 py-3'>
                   {
                     order.productDetails.map((product,index)=>{
