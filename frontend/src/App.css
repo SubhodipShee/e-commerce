@@ -15,3 +15,14 @@
 .scrollbar-none::-webkit-scrollbar{
     display: none;
 }
+.scrollbar-none{
+    scrollbar-width: none;
+}
+/***product card hover (lift + shadow)***/
+.cardHover{
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+}
+/***section heading with purple accent bar***/
+.sectionHeading{
+    @apply text-xl md:text-2xl font-bold py-4 flex items-center gap-2 text-slate-800 before:content-[''] before:w-1.5 before:h-6 before:rounded-full before:bg-purple-600
+}

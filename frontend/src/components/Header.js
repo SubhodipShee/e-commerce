@@ -54,23 +54,24 @@ const Header = () => {
     }
   }
   return (
-    <header className='h-16 shadow-md bg-white fixed w-full z-40'>
-      <div className=' h-full container mx-auto flex items-center px-4 justify-between'>
+    <header className='fixed w-full z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm'>
+      {/* on mobile the search bar wraps to a second row */}
+      <div className='container mx-auto px-4 py-2 lg:py-0 lg:h-16 flex flex-wrap items-center justify-between gap-x-4 gap-y-2'>
             <div className=''>
                 <Link to={"/"}>
                     <Logo w={90} h={50}/>
                 </Link>
             </div>
 
-            <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
-                <input type='text' placeholder='search product here...' className='w-full outline-none' onChange={handleSearch} value={search}/>
-                <div className='text-lg min-w-[50px] h-8 bg-purple-600 flex items-center justify-center rounded-r-full text-white'>
+            <div className='order-last lg:order-none w-full lg:max-w-md h-10 flex items-center justify-between bg-slate-100 rounded-full pl-4 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-purple-500'>
+                <input type='text' placeholder='Search mobiles, TVs, earphones...' className='w-full bg-transparent outline-none text-sm' onChange={handleSearch} value={search}/>
+                <div className='text-lg min-w-[48px] h-10 bg-purple-600 flex items-center justify-center rounded-r-full text-white'>
                   <GrSearch />
                 </div>
             </div>
 
 
-            <div className='flex items-center gap-7'>
+            <div className='flex items-center gap-4 md:gap-6'>
                 
                 <div className='relative flex justify-center'>
 
@@ -79,7 +80,7 @@ const Header = () => {
                       <div className='text-3xl cursor-pointer relative flex justify-center' onClick={()=>setMenuDisplay(preve => !preve)}>
                         {
                           user?.profilePic ? (
-                            <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
+                            <img src={user?.profilePic} className='w-10 h-10 rounded-full object-cover ring-2 ring-purple-200 hover:ring-purple-500 transition' alt={user?.name} />
                           ) : (
                             <FaRegCircleUser/>
                           )
@@ -91,15 +92,15 @@ const Header = () => {
                   
                   {
                     menuDisplay && (
-                      <div className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded' >
-                        <nav>
+                      <div className='absolute right-0 top-12 h-fit min-w-[160px] bg-white p-2 shadow-xl rounded-xl border border-slate-100 origin-top-right animate-scaleIn' >
+                        <nav className='text-sm font-medium'>
                           {
                             user?.role === ROLE.ADMIN && (
-                              <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>Admin Panel</Link>
+                              <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block rounded-lg px-3 py-2 hover:bg-purple-50 hover:text-purple-700' onClick={()=>setMenuDisplay(preve => !preve)}>Admin Panel</Link>
                             )
                           }
-                          <Link to={"/profile"} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>My Profile</Link>
-                          <Link to={"/order"} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>My Orders</Link>
+                          <Link to={"/profile"} className='whitespace-nowrap block rounded-lg px-3 py-2 hover:bg-purple-50 hover:text-purple-700' onClick={()=>setMenuDisplay(preve => !preve)}>My Profile</Link>
+                          <Link to={"/order"} className='whitespace-nowrap block rounded-lg px-3 py-2 hover:bg-purple-50 hover:text-purple-700' onClick={()=>setMenuDisplay(preve => !preve)}>My Orders</Link>
                         </nav>
                       </div>
                     )
@@ -109,7 +110,7 @@ const Header = () => {
 
                   {
                      user?._id && (
-                      <Link to={"/wishlist"} className='text-2xl' title='Wishlist'>
+                      <Link to={"/wishlist"} className='text-2xl text-slate-700 hover:text-purple-600 transition-colors' title='Wishlist'>
                           <FaRegHeart/>
                       </Link>
                      )
@@ -117,11 +118,11 @@ const Header = () => {
 
                   {
                      user?._id && (
-                      <Link to={"/cart"} className='text-2xl relative'>
+                      <Link to={"/cart"} className='text-2xl relative text-slate-700 hover:text-purple-600 transition-colors' title='Cart'>
                           <span><FaCartShopping/></span>
-      
-                          <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
-                              <p className='text-sm'>{context?.cartProductCount}</p>
+
+                          <div className='bg-red-500 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3 shadow'>
+                              <p className='text-xs font-semibold'>{context?.cartProductCount}</p>
                           </div>
                       </Link>
                       )
@@ -132,10 +133,10 @@ const Header = () => {
                 <div>
                   {
                     user?._id  ? (
-                      <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-purple-600 hover:bg-purple-700'>Logout</button>
+                      <button onClick={handleLogout} className='px-4 py-1.5 rounded-full text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 shadow-md shadow-purple-600/30 active:scale-95 transition'>Logout</button>
                     )
                     : (
-                    <Link to={"/login"} className='px-3 py-1 rounded-full text-white bg-purple-600 hover:bg-purple-700'>Login</Link>
+                    <Link to={"/login"} className='px-4 py-1.5 rounded-full text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 shadow-md shadow-purple-600/30 active:scale-95 transition'>Login</Link>
                     )
                   }
                     

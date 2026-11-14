@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { ToastContainer} from 'react-toastify';
@@ -15,6 +15,7 @@ import { setUserDetails } from './store/userSlice';
 
 function App() {
   const dispatch = useDispatch()
+  const location = useLocation()
   const [cartProductCount,setCartProductCount] = useState(0)
 
   const fetchUserDetails = async()=>{
@@ -58,11 +59,14 @@ function App() {
         cartProductCount,   //USER add to cart count
         fetchUserAddToCart
         }}>
-          <ToastContainer />
-     
+          <ToastContainer position='top-center' autoClose={2500} newestOnTop />
+
           <Header/>
-          <main className='min-h-[calc(100vh-120px)] pt-16'>
-          <Outlet/>
+          <main className='min-h-[calc(100vh-120px)] pt-28 lg:pt-16'>
+            {/* key changes on every page, so each page fades in */}
+            <div key={location.pathname} className='animate-fadeIn'>
+              <Outlet/>
+            </div>
           </main>
           <Footer/>
 
