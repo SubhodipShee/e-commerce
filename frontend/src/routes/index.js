@@ -5,6 +5,7 @@ import App from '../App'
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 import SignUp from '../pages/SignUp';
 import CategoryProduct from '../pages/CategoryProduct'
 import ProductDetails from '../pages/ProductDetails'
@@ -36,6 +37,10 @@ const router= createBrowserRouter([
             {
                 path: "forgot-password",
                 element:<ForgotPassword/>
+            },
+            {
+                path: "reset-password/:token",
+                element:<ResetPassword/>
             },
             {
                 path: "sign-up",

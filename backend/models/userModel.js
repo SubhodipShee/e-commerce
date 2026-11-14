@@ -9,7 +9,16 @@ const userSchema = new mongoose.Schema({
     },
     password :String,
     profilePic : String,
-    role: String
+    role: String,
+    // used by forgot password, select:false keeps them out of every API response
+    resetPasswordToken : {
+        type : String,
+        select : false
+    },
+    resetPasswordExpire : {
+        type : Date,
+        select : false
+    }
 },{
     timestamps : true
 })
