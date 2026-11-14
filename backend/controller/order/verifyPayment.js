@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const orderModel = require("../../models/orderModel")
 const addToCartModel = require("../../models/cartProduct")
+const productModel = require("../../models/productModel")
 
 const verifyPaymentController = async(req,res)=>{
     try{
@@ -18,16 +19,25 @@ const verifyPaymentController = async(req,res)=>{
         }
 
         const updateOrder = await orderModel.findOneAndUpdate(
-            { razorpayOrderId : razorpay_order_id, userId : currentUser },
+            // only a pending order, so the same payment can't be processed twice
+            { razorpayOrderId : razorpay_order_id, userId : currentUser, paymentStatus : "PENDING" },
             { razorpayPaymentId : razorpay_payment_id, paymentStatus : "PAID" },
             { new : true }
         )
 
         if(!updateOrder){
-            throw new Error("Order not found")
+            throw new Error("Order not found or already paid")
         }
 
-        // payment done, empty the user's cart
+        // payment done, reduce stock of ordered products (only products with stock tracked)
+        await Promise.all(updateOrder.productDetails.map(product =>
+            productModel.updateOne(
+                { _id : product.productId, stock : { $ne : null } },
+                { $inc : { stock : -product.quantity } }
+            )
+        ))
+
+        // empty the user's cart
         await addToCartModel.deleteMany({ userId : currentUser })
 
         res.json({

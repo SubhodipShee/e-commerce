@@ -7,7 +7,8 @@ const productSchema = mongoose.Schema({
     productImage : [],
     description : String,
     price : Number,
-    sellingPrice : Number
+    sellingPrice : Number,
+    stock : Number      // empty for old products = stock not tracked
 },{
     timestamps : true
 })

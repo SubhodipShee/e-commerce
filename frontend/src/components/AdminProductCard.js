@@ -105,6 +105,12 @@ const AdminProductCard = ({ data, fetchdata }) => {
             {data?.sellingPrice ? displayINRCurrency(data.sellingPrice) : 'Price Not Available'}
           </p>
 
+          {typeof data?.stock === 'number' && (
+            <p className={`text-sm ${data.stock === 0 ? 'text-red-600 font-medium' : 'text-slate-500'}`}>
+              {data.stock === 0 ? 'Out of stock' : `Stock : ${data.stock}`}
+            </p>
+          )}
+
           <div className='flex justify-end gap-2'>
             <div
               className='w-fit p-2 bg-green-100 hover:bg-green-600 rounded-full hover:text-white cursor-pointer'

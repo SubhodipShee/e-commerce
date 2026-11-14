@@ -1,9 +1,20 @@
 const addToCartModel = require("../../models/cartProduct")
+const productModel = require("../../models/productModel")
 
 const addToCartController = async(req,res)=>{
     try{
         const { productId } = req?.body
         const currentUser = req.userId
+
+        const product = await productModel.findById(productId).select("stock").lean()
+
+        if(product?.stock === 0){
+            return res.json({
+                message : "Product is out of stock",
+                success : false,
+                error : true
+            })
+        }
 
         const isProductAvailable = await addToCartModel.findOne({ productId, userId : currentUser })
 

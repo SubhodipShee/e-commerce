@@ -219,9 +219,21 @@ const ProductDetails = () => {
                   <p className='text-slate-400 line-through'>{displayINRCurrency(data.price)}</p>
                 </div>
 
+                {/**stock message (products without stock number are not tracked) */}
+                {
+                  data?.stock === 0 && (
+                    <p className='text-red-600 font-medium'>Out of stock</p>
+                  )
+                }
+                {
+                  data?.stock > 0 && data?.stock <= 5 && (
+                    <p className='text-orange-600 font-medium'>Only {data.stock} left in stock</p>
+                  )
+                }
+
                 <div className='flex items-center gap-3 my-2'>
-                  <button className='border-2 border-purple-600 rounded px-3 py-1 min-w-[120px] text-purple-600 font-medium hover:bg-purple-600 hover:text-white' onClick={(e)=>handleBuyProduct(e,data?._id)} >Buy</button>
-                  <button className='border-2 border-purple-600 rounded px-3 py-1 min-w-[120px] font-medium text-white bg-purple-600 hover:text-purple-600 hover:bg-white'onClick={(e)=>handleAddToCart(e,data?._id)}>Add To Cart</button>
+                  <button disabled={data?.stock === 0} className='border-2 border-purple-600 rounded px-3 py-1 min-w-[120px] text-purple-600 font-medium hover:bg-purple-600 hover:text-white disabled:opacity-50 disabled:pointer-events-none' onClick={(e)=>handleBuyProduct(e,data?._id)} >Buy</button>
+                  <button disabled={data?.stock === 0} className='border-2 border-purple-600 rounded px-3 py-1 min-w-[120px] font-medium text-white bg-purple-600 hover:text-purple-600 hover:bg-white disabled:opacity-50 disabled:pointer-events-none' onClick={(e)=>handleAddToCart(e,data?._id)}>Add To Cart</button>
                   <button className='border-2 border-purple-600 rounded p-2 text-purple-600 hover:bg-purple-600 hover:text-white' title='Add to Wishlist' onClick={(e)=>addToWishlist(e,data?._id)}><FaRegHeart/></button>
                 </div>
 

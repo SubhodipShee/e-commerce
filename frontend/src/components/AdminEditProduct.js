@@ -22,7 +22,8 @@ const AdminEditProduct = ({
     productImage : productData?.productImage || [],
     description : productData?.description,
     price : productData?.price,
-    sellingPrice : productData?.sellingPrice
+    sellingPrice : productData?.sellingPrice,
+    stock : productData?.stock ?? ""
   })
   const [openFullScreenImage,setOpenFullScreenImage] = useState(false)
   const [fullScreenImage,setFullScreenImage] = useState("")
@@ -208,11 +209,23 @@ const AdminEditProduct = ({
              type='number' 
              id='sellingPrice' 
              placeholder='enter selling price' 
-             value={data.sellingPrice} 
+             value={data.sellingPrice}
              name='sellingPrice'
              onChange={handleOnChange}
              className='p-2 bg-slate-100 border rounded'
              required
+           />
+
+           <label htmlFor='stock' className='mt-3'>Stock :</label>
+           <input
+             type='number'
+             id='stock'
+             min={0}
+             placeholder='enter stock quantity (empty = not tracked)'
+             value={data.stock}
+             name='stock'
+             onChange={handleOnChange}
+             className='p-2 bg-slate-100 border rounded'
            />
 
            <label htmlFor='description' className='mt-3'>Description :</label>

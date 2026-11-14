@@ -7,7 +7,7 @@ const createOrderController = async(req,res)=>{
         const currentUser = req.userId
 
         const cartProduct = await addToCartModel.find({ userId : currentUser })
-            .populate("productId","productName productImage sellingPrice")
+            .populate("productId","productName productImage sellingPrice stock")
             .lean()
 
         // skip cart items whose product no longer exists
@@ -16,6 +16,16 @@ const createOrderController = async(req,res)=>{
         if(validCartProduct.length === 0){
             throw new Error("Cart is empty")
         }
+
+        // check stock (products without stock number are not tracked)
+        validCartProduct.forEach(el =>{
+            const stock = el.productId.stock
+            if(typeof stock === 'number' && el.quantity > stock){
+                throw new Error(stock === 0
+                    ? `${el.productId.productName} is out of stock`
+                    : `Only ${stock} left in stock for ${el.productId.productName}`)
+            }
+        })
 
         // price is calculated from database, not from the browser
         const productDetails = validCartProduct.map(el => ({
