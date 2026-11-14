@@ -1,17 +1,22 @@
 
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter} from 'react-router-dom';
 import App from '../App'
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import ForgotPassword from '../pages/ForgotPassword';
 import SignUp from '../pages/SignUp';
-import AdminPanel from '../pages/AdminPanel';
-import AllUsers from '../pages/AllUsers';
-import AllProducts from '../pages/AllProducts';
 import CategoryProduct from '../pages/CategoryProduct'
 import ProductDetails from '../pages/ProductDetails'
 import Cart from '../pages/Cart'
 import SearchProduct from '../pages/SearchProduct';
+
+// admin pages are loaded only when an admin opens them, so normal users download less code
+const AdminPanel = lazy(()=> import('../pages/AdminPanel'))
+const AllUsers = lazy(()=> import('../pages/AllUsers'))
+const AllProducts = lazy(()=> import('../pages/AllProducts'))
+
+const adminLoading = <p className='text-lg text-center p-4'>Loading ...</p>
 
 const router= createBrowserRouter([
     {
@@ -53,15 +58,15 @@ const router= createBrowserRouter([
             },
             {
                 path:"admin-panel",
-                element: <AdminPanel/>,
+                element: <Suspense fallback={adminLoading}><AdminPanel/></Suspense>,
                 children :[
                     {
                         path:"all-users",
-                        element:<AllUsers/>
+                        element:<Suspense fallback={adminLoading}><AllUsers/></Suspense>
                     },
                     {
                         path:"all-products",
-                        element:<AllProducts/>
+                        element:<Suspense fallback={adminLoading}><AllProducts/></Suspense>
                     }
                 ]
             }

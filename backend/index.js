@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const compression = require('compression')
 
 require('dotenv').config()
 const connectDB = require('./config/db')
@@ -12,6 +13,7 @@ app.use(cors({
     origin : process.env.FRONTEND_URL,
     credentials : true
 }))
+app.use(compression()) // gzip responses so less data is sent to the browser
 app.use(express.json())
 app.use(cookieParser())
 

@@ -11,6 +11,10 @@ const productSchema = mongoose.Schema({
 },{
     timestamps : true
 })
+
+// faster lookup for category pages and filters
+productSchema.index({ category : 1 })
+
 const productModel = mongoose.model("product",productSchema)
 
 module.exports = productModel

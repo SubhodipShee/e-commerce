@@ -5,7 +5,9 @@ const addToCartViewProduct = async(req,res)=>{
 
         const allProduct = await addToCartModel.find({
             userId : currentUser
-        }).populate("productId")
+        })
+        .populate("productId","productName category productImage sellingPrice") // only fields used in cart page
+        .lean()
 
         res.json({
             data : allProduct,

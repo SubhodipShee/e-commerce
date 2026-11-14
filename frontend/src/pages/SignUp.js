@@ -3,7 +3,7 @@ import loginIcons from '../assest/signin.gif'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate} from 'react-router-dom';
-import imageTobase64 from '../helpers/imageTobase64';
+import uploadImage from '../helpers/uploadImage';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 
@@ -34,13 +34,13 @@ const SignUp = () => {
     const handleUploadPic =async(e)=>{
         const file =e.target.files[0]
 
-        const imagePic = await imageTobase64(file)
+        // upload to Cloudinary and save only the image URL (same as product images)
+        const uploadImageCloudinary = await uploadImage(file)
 
-        
         setData((preve)=>{
             return{
               ...preve,
-              profilePic : imagePic
+              profilePic : uploadImageCloudinary.url
               
             }
 

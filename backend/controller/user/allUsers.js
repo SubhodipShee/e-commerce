@@ -8,7 +8,8 @@ async function allUsers(req,res){
             throw new Error("Permission denied")
         }
 
-        const allUsers = await userModel.find().select("-password")
+        // profilePic is not shown in the users table, so skip it to keep response small
+        const allUsers = await userModel.find().select("-password -profilePic")
 
         res.json({
             message : "All User ",

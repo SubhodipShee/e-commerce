@@ -11,17 +11,21 @@ const SearchProduct = () => {
     const [loading,setLoading] = useState(false)
 
 
-    console.log("query",query.search)
     const fetchProduct = async()=>{
         setLoading(true)
         const response = await fetch(SummaryApi.searchProduct.url+query.search)
         const dataResponse = await response.json()
         setLoading(false)
         setData(dataResponse.data)
-       
+
     }
     useEffect(()=>{
-        fetchProduct()
+        // wait until the user stops typing, then search once (not on every key press)
+        const timer = setTimeout(()=>{
+            fetchProduct()
+        },400)
+
+        return ()=> clearTimeout(timer)
     },[query])
 
   return (

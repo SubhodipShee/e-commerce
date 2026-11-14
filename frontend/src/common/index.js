@@ -1,9 +1,8 @@
 
 
 
-const backendDomin = "https://e-commerce-backend-rem3.onrender.com"
-
-// const backendDomin = "http://localhost:7070" for local development
+// set REACT_APP_BACKEND_URL in frontend/.env (e.g. http://localhost:7070 for local development)
+const backendDomin = process.env.REACT_APP_BACKEND_URL || "https://e-commerce-backend-rem3.onrender.com"
 
 
 const SummaryApi = {

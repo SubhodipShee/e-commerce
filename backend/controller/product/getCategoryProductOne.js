@@ -2,20 +2,13 @@ const productModel = require('../../models/productModel')
 
 const getCategoryProduct = async(req,res)=>{
     try{
-        const productCategory = await productModel.distinct("category")
+        // one product from each category, fetched in a single query
+        const productByCategory = await productModel.aggregate([
+            { $group : { _id : "$category", product : { $first : "$$ROOT" } } },
+            { $replaceRoot : { newRoot : "$product" } },
+            { $sort : { category : 1 } }
+        ])
 
-        console.log("category",productCategory)
-
-        //array to store one product from each category
-        const productByCategory = []
-
-        for(const category of productCategory){
-            const product = await productModel.findOne({category })
-
-            if(product){
-                productByCategory.push(product)
-            }
-        }
         res.json({
             message : "category product",
             data : productByCategory,

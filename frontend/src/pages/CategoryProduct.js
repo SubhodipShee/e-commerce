@@ -126,7 +126,7 @@ return (
                       {
                         productCategory.map((categoryName,index)=>{
                           return(
-                            <div className='flex items-center gap-3'>
+                            <div className='flex items-center gap-3' key={categoryName?.value}>
                                <input type='checkbox' name={"category"} checked={selectCategory[categoryName?.value]} value={categoryName?.value} id={categoryName?.value} onChange={handleSelectCategory} />
                                <label htmlFor={categoryName?.value}>{categoryName?.label}</label>
                             </div>

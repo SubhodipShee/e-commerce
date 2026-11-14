@@ -9,6 +9,7 @@ const searchProduct = async(req,res)=>{
 
         const regex = new RegExp(safeQuery,'i')
 
+        // only the fields needed by product cards
         const product = await productModel.find({
             "$or" : [
                 {
@@ -19,6 +20,8 @@ const searchProduct = async(req,res)=>{
                 }
             ]
         })
+        .select("productName category productImage price sellingPrice")
+        .lean()
         res.json({
             data  : product ,
             message : "Search Product list",

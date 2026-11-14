@@ -10,6 +10,10 @@ const addToCart = mongoose.Schema({
 },{
     timestamps : true
 })
+
+// faster lookup of a user's cart and duplicate product check
+addToCart.index({ userId : 1, productId : 1 })
+
 const addToCartModel = mongoose.model("addToCart",addToCart)
 
 module.exports = addToCartModel

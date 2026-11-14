@@ -5,6 +5,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import addToCart from '../helpers/addToCart'
 import Context from '../context'
+import optimizeImage from '../helpers/optimizeImage'
 
 
 const VerticalCardProduct = ({category,heading}) => {
@@ -27,7 +28,6 @@ const VerticalCardProduct = ({category,heading}) => {
       const categoryProduct = await fetchCategoryWiseProduct(category)
       setLoading(false)
 
-      console.log("horizontal data",categoryProduct)
       setData(categoryProduct?.data)
     }
     useEffect(()=>{
@@ -52,7 +52,7 @@ const VerticalCardProduct = ({category,heading}) => {
           loading ?(
             loadingList.map((product,index)=>{
               return(
-                  <div className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px]  bg-white rounded-sm shadow '>
+                  <div className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px]  bg-white rounded-sm shadow ' key={"loading"+index}>
                       <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center animate-pulse'>
                       </div>
                       <div className='p-4 grid gap-3'>
@@ -70,9 +70,9 @@ const VerticalCardProduct = ({category,heading}) => {
           ):(
             data.map((product,index)=>{
               return(
-                <Link to={"product/"+product?._id} className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow '>
+                <Link to={"product/"+product?._id} className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow ' key={product?._id}>
                     <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
-                        <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'/>
+                        <img src={optimizeImage(product.productImage[0])} loading='lazy' className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'/>
                     </div>
                    
   

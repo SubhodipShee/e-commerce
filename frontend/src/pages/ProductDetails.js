@@ -8,6 +8,7 @@ import VerticalCardProduct from '../components/VerticalCardProduct';
 import CategroyWiseProductDisplay from '../components/CategoryWiseProductDisplay';
 import addToCart from '../helpers/addToCart';
 import Context from '../context';
+import optimizeImage from '../helpers/optimizeImage';
 
 const ProductDetails = () => {
   const [data,setData] = useState({
@@ -50,7 +51,6 @@ const ProductDetails = () => {
     setLoading(false)
 
   }
-  console.log("data",data)
 
   useEffect(()=>{
     fetchProductDetails()
@@ -62,7 +62,6 @@ const ProductDetails = () => {
   const handleZoomImage = useCallback((e) =>{
     setZoomImage(true)
     const { left , top, width , height } = e.target.getBoundingClientRect()
-    console.log("coordinate", left, top , width , height)
 
     const x = (e.clientX - left) / width
     const y = (e.clientY - top) / height
@@ -140,7 +139,7 @@ const ProductDetails = () => {
                       data.productImage.map((imgURL,index) =>{
                         return(
                           <div className='h-20 w-20 bg-slate-200 rounded p-1' key={imgURL}>
-                            <img src={imgURL} className='w-full h-full object-scale-down mix-blend-multiply cursor-pointer' onMouseEnter={()=>handleMouseEnterProduct(imgURL)} onClick={()=>handleMouseEnterProduct(imgURL)}/>
+                            <img src={optimizeImage(imgURL,150)} className='w-full h-full object-scale-down mix-blend-multiply cursor-pointer' onMouseEnter={()=>handleMouseEnterProduct(imgURL)} onClick={()=>handleMouseEnterProduct(imgURL)}/>
                           </div>
                         )
                       })

@@ -51,6 +51,7 @@ import React, { useState } from 'react';
 import { MdModeEditOutline } from "react-icons/md";
 import AdminEditProduct from './AdminEditProduct';
 import displayINRCurrency from '../helpers/displayCurrency';
+import optimizeImage from '../helpers/optimizeImage';
 
 const AdminProductCard = ({ data, fetchdata }) => {
   const [editProduct, setEditProduct] = useState(false);
@@ -63,9 +64,10 @@ const AdminProductCard = ({ data, fetchdata }) => {
       <div className='w-40'>
         <div className='w-32 h-32 flex justify-center items-center'>
           {/* Safely render the first product image */}
-          <img 
-            src={productImage} 
-            alt={data?.productName || 'Product Image'} 
+          <img
+            src={optimizeImage(productImage,300)}
+            loading='lazy'
+            alt={data?.productName || 'Product Image'}
             className='mx-auto object-fill h-full' 
           />
         </div> 

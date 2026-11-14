@@ -74,7 +74,7 @@ const BannerProduct = () => {
                 desktopImages.map((imageURl,index)=>{
                     return(
                         <div className='w-full h-full min-w-full min-h-full transition-all' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
-                            <img src={imageURl} className='w-full h-full'/>
+                            <img src={imageURl} loading='lazy' className='w-full h-full'/>
                         </div>
                     )
                     })
@@ -87,7 +87,7 @@ const BannerProduct = () => {
                         mobileImages.map((imageURl,index)=>{
                             return(
                             <div className='w-full h-full min-w-full min-h-full transition-all' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
-                                <img src={imageURl} className='w-full h-full object-cover'/>
+                                <img src={imageURl} loading='lazy' className='w-full h-full object-cover'/>
                             </div>
                             )
                         })
