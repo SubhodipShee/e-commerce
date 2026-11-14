@@ -1,14 +1,14 @@
 import React,{useCallback, useContext, useEffect, useState} from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import SummaryApi from '../common'
-import { FaStar } from "react-icons/fa";
-import { FaStarHalf } from "react-icons/fa";
 import displayINRCurrency from '../helpers/displayCurrency';
 import VerticalCardProduct from '../components/VerticalCardProduct';
 import CategroyWiseProductDisplay from '../components/CategoryWiseProductDisplay';
 import addToCart from '../helpers/addToCart';
 import Context from '../context';
 import optimizeImage from '../helpers/optimizeImage';
+import RatingStars from '../components/RatingStars';
+import ProductReview from '../components/ProductReview';
 
 const ProductDetails = () => {
   const [data,setData] = useState({
@@ -30,6 +30,11 @@ const ProductDetails = () => {
     y : 0
   })
   const [zoomImage,setZoomImage] = useState(false)
+  const [reviewData,setReviewData] = useState({
+    reviews : [],
+    averageRating : 0,
+    totalReview : 0
+  })
   const { fetchUserAddToCart } = useContext(Context)
 
   const navigate = useNavigate()
@@ -52,8 +57,26 @@ const ProductDetails = () => {
 
   }
 
+  const fetchProductReview = async()=>{
+    const response = await fetch(SummaryApi.productReview.url,{
+      method : SummaryApi.productReview.method,
+      headers : {
+        "content-type" : "application/json"
+      },
+      body : JSON.stringify({
+        productId : params?.id
+      })
+    })
+    const dataResponse = await response.json()
+
+    if(dataResponse.success){
+      setReviewData(dataResponse.data)
+    }
+  }
+
   useEffect(()=>{
     fetchProductDetails()
+    fetchProductReview()
   },[params])
 
   const handleMouseEnterProduct = (imageURL)=>{
@@ -184,12 +207,9 @@ const ProductDetails = () => {
                 <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productName}</h2>
                 <p className='capitalize text-slate-400'>{data?.category}</p>
 
-                <div className='text-yellow-300 flex items-center gap-1'>
-                    <FaStar/>
-                    <FaStar/>
-                    <FaStar/>
-                    <FaStar/>
-                    <FaStarHalf/>
+                <div className='flex items-center gap-2'>
+                    <RatingStars rating={reviewData.averageRating}/>
+                    <p className='text-sm text-slate-500'>{reviewData.averageRating} ({reviewData.totalReview} reviews)</p>
                 </div>
 
                 <div className='flex items-center gap-2 text-2xl lg:text-3xl font-medium my-1'>
@@ -211,6 +231,11 @@ const ProductDetails = () => {
         }
       </div>
 
+      {
+        data?._id && (
+          <ProductReview productId={data._id} reviewData={reviewData} fetchReview={fetchProductReview}/>
+        )
+      }
 
       {
         data.category && (

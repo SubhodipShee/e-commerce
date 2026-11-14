@@ -29,6 +29,8 @@ const verifyPaymentController = require('../controller/order/verifyPayment')
 const orderListController = require('../controller/order/orderList')
 const allOrdersController = require('../controller/order/allOrders')
 const updateOrderStatusController = require('../controller/order/updateOrderStatus')
+const addReviewController = require('../controller/review/addReview')
+const getProductReviewController = require('../controller/review/getProductReview')
 
 router.post("/signup",userSignUpController)
 router.post("/signin",userSignInController)
@@ -65,6 +67,10 @@ router.post("/verify-payment",authToken,verifyPaymentController)
 router.get("/order-list",authToken,orderListController)
 router.get("/all-order",authToken,allOrdersController)
 router.post("/update-order-status",authToken,updateOrderStatusController)
+
+//review
+router.post("/add-review",authToken,addReviewController)
+router.post("/product-review",getProductReviewController)
 
 
 

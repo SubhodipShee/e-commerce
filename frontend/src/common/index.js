@@ -109,6 +109,14 @@ const SummaryApi = {
     updateOrderStatus : {
         url : `${backendDomin}/api/update-order-status`,
         method : 'post'
+    },
+    addReview : {
+        url : `${backendDomin}/api/add-review`,
+        method : 'post'
+    },
+    productReview : {
+        url : `${backendDomin}/api/product-review`,
+        method : 'post'
     }
 }
 
