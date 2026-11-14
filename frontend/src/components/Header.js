@@ -98,6 +98,7 @@ const Header = () => {
                               <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>Admin Panel</Link>
                             )
                           }
+                          <Link to={"/profile"} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>My Profile</Link>
                           <Link to={"/order"} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>My Orders</Link>
                         </nav>
                       </div>

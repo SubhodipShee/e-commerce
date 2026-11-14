@@ -30,6 +30,14 @@ const SummaryApi = {
         url : `${backendDomin}/api/reset-password`,
         method : 'post'
     },
+    updateProfile : {
+        url : `${backendDomin}/api/update-profile`,
+        method : 'post'
+    },
+    changePassword : {
+        url : `${backendDomin}/api/change-password`,
+        method : 'post'
+    },
     allUser : {
         url : `${backendDomin}/api/all-user`,
         method : 'get'
