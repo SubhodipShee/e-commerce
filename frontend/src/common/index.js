@@ -117,6 +117,18 @@ const SummaryApi = {
     productReview : {
         url : `${backendDomin}/api/product-review`,
         method : 'post'
+    },
+    addToWishlist : {
+        url : `${backendDomin}/api/add-wishlist`,
+        method : 'post'
+    },
+    viewWishlist : {
+        url : `${backendDomin}/api/view-wishlist`,
+        method : 'get'
+    },
+    deleteWishlist : {
+        url : `${backendDomin}/api/delete-wishlist`,
+        method : 'post'
     }
 }
 

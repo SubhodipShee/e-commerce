@@ -3,6 +3,7 @@ import Logo from './Logo'
 import { FaRegCircleUser } from "react-icons/fa6";
 import { GrSearch } from "react-icons/gr";
 import { FaCartShopping } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import SummaryApi from '../common';
@@ -104,6 +105,14 @@ const Header = () => {
                   }
                  
                 </div>
+
+                  {
+                     user?._id && (
+                      <Link to={"/wishlist"} className='text-2xl' title='Wishlist'>
+                          <FaRegHeart/>
+                      </Link>
+                     )
+                  }
 
                   {
                      user?._id && (

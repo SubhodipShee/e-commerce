@@ -10,6 +10,7 @@ import SignUp from '../pages/SignUp';
 import CategoryProduct from '../pages/CategoryProduct'
 import ProductDetails from '../pages/ProductDetails'
 import Cart from '../pages/Cart'
+import Wishlist from '../pages/Wishlist'
 import SearchProduct from '../pages/SearchProduct';
 
 // these pages are loaded only when opened, so the home page downloads less code
@@ -58,6 +59,10 @@ const router= createBrowserRouter([
             {
                 path : 'cart',
                 element : <Cart/>
+            },
+            {
+                path : 'wishlist',
+                element : <Wishlist/>
             },
             {
                 path : 'search',

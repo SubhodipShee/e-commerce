@@ -31,6 +31,9 @@ const allOrdersController = require('../controller/order/allOrders')
 const updateOrderStatusController = require('../controller/order/updateOrderStatus')
 const addReviewController = require('../controller/review/addReview')
 const getProductReviewController = require('../controller/review/getProductReview')
+const addToWishlistController = require('../controller/wishlist/addToWishlist')
+const viewWishlistController = require('../controller/wishlist/viewWishlist')
+const deleteWishlistController = require('../controller/wishlist/deleteWishlist')
 
 router.post("/signup",userSignUpController)
 router.post("/signin",userSignInController)
@@ -71,6 +74,11 @@ router.post("/update-order-status",authToken,updateOrderStatusController)
 //review
 router.post("/add-review",authToken,addReviewController)
 router.post("/product-review",getProductReviewController)
+
+//wishlist
+router.post("/add-wishlist",authToken,addToWishlistController)
+router.get("/view-wishlist",authToken,viewWishlistController)
+router.post("/delete-wishlist",authToken,deleteWishlistController)
 
 
 
