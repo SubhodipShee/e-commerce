@@ -57,15 +57,27 @@ const BannerProduct = () => {
     },[currentImage])
 
   return (
-    <div className='container mx-auto px-4 rounded '>
-      <div className='h-56 md:h-72 w-full bg-slate-200 relative'>
+    <div className='container mx-auto px-4'>
+      <div className='h-56 md:h-72 w-full bg-slate-200 relative rounded-2xl overflow-hidden shadow-sm group'>
 
-        <div className='absolute z-10 h-full w-full md:flex items-center hidden'>
-            <div className='flex justify-between w-full text-2xl'>
-                <button onClick={preveImage} className='bg-white shadow-md rounded-full p-1'><FaAngleLeft/></button>
-                <button onClick={nextImage} className='bg-white shadow-md rounded-full p-1'><FaAngleRight/></button>
+        {/**arrows show on hover (desktop) */}
+        <div className='absolute z-10 h-full w-full md:flex items-center hidden px-3 pointer-events-none'>
+            <div className='flex justify-between w-full text-xl'>
+                <button onClick={preveImage} className='pointer-events-auto bg-white/80 backdrop-blur hover:bg-white shadow-md rounded-full p-2 opacity-0 group-hover:opacity-100 transition'><FaAngleLeft/></button>
+                <button onClick={nextImage} className='pointer-events-auto bg-white/80 backdrop-blur hover:bg-white shadow-md rounded-full p-2 opacity-0 group-hover:opacity-100 transition'><FaAngleRight/></button>
             </div>
-            
+
+        </div>
+
+        {/**dots to show and change the current slide */}
+        <div className='absolute z-10 bottom-3 w-full flex justify-center gap-2'>
+            {
+                desktopImages.map((imageURl,index)=>{
+                    return(
+                        <button key={"dot"+index} onClick={()=>setCurrentImage(index)} className={`h-2 rounded-full transition-all duration-300 ${currentImage === index ? 'w-6 bg-white' : 'w-2 bg-white/60'}`}></button>
+                    )
+                })
+            }
         </div>
 
         {/* dekstop version */}
@@ -73,7 +85,7 @@ const BannerProduct = () => {
                 {
                 desktopImages.map((imageURl,index)=>{
                     return(
-                        <div className='w-full h-full min-w-full min-h-full transition-all' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
+                        <div className='w-full h-full min-w-full min-h-full transition-transform duration-700 ease-in-out' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
                             <img src={imageURl} loading='lazy' className='w-full h-full'/>
                         </div>
                     )
@@ -86,7 +98,7 @@ const BannerProduct = () => {
                 {
                         mobileImages.map((imageURl,index)=>{
                             return(
-                            <div className='w-full h-full min-w-full min-h-full transition-all' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
+                            <div className='w-full h-full min-w-full min-h-full transition-transform duration-700 ease-in-out' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
                                 <img src={imageURl} loading='lazy' className='w-full h-full object-cover'/>
                             </div>
                             )
