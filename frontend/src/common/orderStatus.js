@@ -1,0 +1,8 @@
+const ORDER_STATUS = {
+    PLACED : "PLACED",
+    SHIPPED : "SHIPPED",
+    DELIVERED : "DELIVERED",
+    CANCELLED : "CANCELLED"
+}
+
+export default ORDER_STATUS

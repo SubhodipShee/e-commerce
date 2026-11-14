@@ -81,6 +81,26 @@ const SummaryApi = {
     filterProduct : {
         url : `${backendDomin}/api/filter-product`,
         method : 'post'
+    },
+    createOrder : {
+        url : `${backendDomin}/api/create-order`,
+        method : 'post'
+    },
+    verifyPayment : {
+        url : `${backendDomin}/api/verify-payment`,
+        method : 'post'
+    },
+    orderList : {
+        url : `${backendDomin}/api/order-list`,
+        method : 'get'
+    },
+    allOrder : {
+        url : `${backendDomin}/api/all-order`,
+        method : 'get'
+    },
+    updateOrderStatus : {
+        url : `${backendDomin}/api/update-order-status`,
+        method : 'post'
     }
 }
 

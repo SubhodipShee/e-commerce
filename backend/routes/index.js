@@ -22,6 +22,11 @@ const updateAddToCartProduct = require('../controller/user/updateAddToCartProduc
 const deleteAddToCartProduct = require('../controller/user/deleteAddToCartProduct')
 const searchProduct = require('../controller/product/searchProduct')
 const filterProductController = require('../controller/product/filterProduct')
+const createOrderController = require('../controller/order/createOrder')
+const verifyPaymentController = require('../controller/order/verifyPayment')
+const orderListController = require('../controller/order/orderList')
+const allOrdersController = require('../controller/order/allOrders')
+const updateOrderStatusController = require('../controller/order/updateOrderStatus')
 
 router.post("/signup",userSignUpController)
 router.post("/signin",userSignInController)
@@ -49,6 +54,13 @@ router.get("/countAddToCartProduct",authToken,countAddToCartProduct)
 router.get("/view-card-product",authToken,addToCartViewProduct)
 router.post("/update-cart-product",authToken,updateAddToCartProduct)
 router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
+
+//order and payment
+router.post("/create-order",authToken,createOrderController)
+router.post("/verify-payment",authToken,verifyPaymentController)
+router.get("/order-list",authToken,orderListController)
+router.get("/all-order",authToken,allOrdersController)
+router.post("/update-order-status",authToken,updateOrderStatusController)
 
 
 

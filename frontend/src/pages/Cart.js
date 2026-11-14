@@ -4,6 +4,10 @@ import Context from '../context'
 import displayINRCurrency from '../helpers/displayCurrency'
 import { MdDelete } from "react-icons/md";
 import optimizeImage from '../helpers/optimizeImage'
+import loadRazorpayScript from '../helpers/loadRazorpayScript'
+import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 
 const Cart = () => {
@@ -11,6 +15,8 @@ const Cart = () => {
     const [loading,setLoading] = useState(false)
     const context = useContext(Context)
     const loadingCart = new Array(context.cartProductCount).fill(null)
+    const user = useSelector(state => state?.user?.user)
+    const navigate = useNavigate()
 
     const fetchData = async() =>{
        
@@ -105,7 +111,72 @@ const Cart = () => {
             context.fetchUserAddToCart()
         }
     }
-    
+
+    const verifyPayment = async(paymentResponse)=>{
+        const response = await fetch(SummaryApi.verifyPayment.url,{
+            method : SummaryApi.verifyPayment.method,
+            credentials : 'include',
+            headers : {
+                "content-type" : 'application/json'
+            },
+            body : JSON.stringify(paymentResponse)
+        })
+        const responseData = await response.json()
+
+        if(responseData.success){
+            toast.success(responseData.message)
+            context.fetchUserAddToCart()
+            navigate("/order")
+        }
+
+        if(responseData.error){
+            toast.error(responseData.message)
+        }
+    }
+
+    const handlePayment = async()=>{
+        const isScriptLoaded = await loadRazorpayScript()
+
+        if(!isScriptLoaded){
+            toast.error("Payment service failed to load, please try again")
+            return
+        }
+
+        // create order on backend (amount is calculated there from the cart)
+        const response = await fetch(SummaryApi.createOrder.url,{
+            method : SummaryApi.createOrder.method,
+            credentials : 'include',
+            headers : {
+                "content-type" : 'application/json'
+            }
+        })
+        const responseData = await response.json()
+
+        if(responseData.error){
+            toast.error(responseData.message)
+            return
+        }
+
+        const razorpay = new window.Razorpay({
+            key : responseData.data.key,
+            amount : responseData.data.amount,
+            currency : responseData.data.currency,
+            order_id : responseData.data.razorpayOrderId,
+            name : "ElectroPlaza",
+            description : "Order Payment",
+            prefill : {
+                name : user?.name,
+                email : user?.email
+            },
+            theme : {
+                color : "#9333ea"
+            },
+            handler : verifyPayment     // called by Razorpay after successful payment
+        })
+
+        razorpay.open()
+    }
+
     const totalQty = data.reduce((previousValue,currentValue)=> previousValue + currentValue.quantity,0)
     const totalPrice = data.reduce((preve,curr)=> preve + (curr.quantity * curr?.productId?.sellingPrice) ,0)
 
@@ -181,7 +252,7 @@ const Cart = () => {
                         <p>Total Price</p>
                         <p>{displayINRCurrency(totalPrice)}</p>    
                     </div> 
-                    <button className='bg-blue-500 p-2 text-white w-full mt-2'>Payment</button>
+                    <button className='bg-blue-500 p-2 text-white w-full mt-2' onClick={handlePayment}>Payment</button>
                 </div>
             )
          }

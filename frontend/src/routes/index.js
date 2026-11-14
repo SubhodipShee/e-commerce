@@ -11,12 +11,14 @@ import ProductDetails from '../pages/ProductDetails'
 import Cart from '../pages/Cart'
 import SearchProduct from '../pages/SearchProduct';
 
-// admin pages are loaded only when an admin opens them, so normal users download less code
+// these pages are loaded only when opened, so the home page downloads less code
 const AdminPanel = lazy(()=> import('../pages/AdminPanel'))
 const AllUsers = lazy(()=> import('../pages/AllUsers'))
 const AllProducts = lazy(()=> import('../pages/AllProducts'))
+const AllOrders = lazy(()=> import('../pages/AllOrders'))
+const OrderPage = lazy(()=> import('../pages/OrderPage'))
 
-const adminLoading = <p className='text-lg text-center p-4'>Loading ...</p>
+const pageLoading = <p className='text-lg text-center p-4'>Loading ...</p>
 
 const router= createBrowserRouter([
     {
@@ -57,16 +59,24 @@ const router= createBrowserRouter([
                 element : <SearchProduct/>
             },
             {
+                path : 'order',
+                element : <Suspense fallback={pageLoading}><OrderPage/></Suspense>
+            },
+            {
                 path:"admin-panel",
-                element: <Suspense fallback={adminLoading}><AdminPanel/></Suspense>,
+                element: <Suspense fallback={pageLoading}><AdminPanel/></Suspense>,
                 children :[
                     {
                         path:"all-users",
-                        element:<Suspense fallback={adminLoading}><AllUsers/></Suspense>
+                        element:<Suspense fallback={pageLoading}><AllUsers/></Suspense>
                     },
                     {
                         path:"all-products",
-                        element:<Suspense fallback={adminLoading}><AllProducts/></Suspense>
+                        element:<Suspense fallback={pageLoading}><AllProducts/></Suspense>
+                    },
+                    {
+                        path:"all-orders",
+                        element:<Suspense fallback={pageLoading}><AllOrders/></Suspense>
                     }
                 ]
             }
