@@ -18,6 +18,7 @@ const AdminPanel = lazy(()=> import('../pages/AdminPanel'))
 const AllUsers = lazy(()=> import('../pages/AllUsers'))
 const AllProducts = lazy(()=> import('../pages/AllProducts'))
 const AllOrders = lazy(()=> import('../pages/AllOrders'))
+const AdminDashboard = lazy(()=> import('../pages/AdminDashboard'))
 const OrderPage = lazy(()=> import('../pages/OrderPage'))
 
 const pageLoading = <p className='text-lg text-center p-4'>Loading ...</p>
@@ -76,6 +77,10 @@ const router= createBrowserRouter([
                 path:"admin-panel",
                 element: <Suspense fallback={pageLoading}><AdminPanel/></Suspense>,
                 children :[
+                    {
+                        path:"dashboard",
+                        element:<Suspense fallback={pageLoading}><AdminDashboard/></Suspense>
+                    },
                     {
                         path:"all-users",
                         element:<Suspense fallback={pageLoading}><AllUsers/></Suspense>

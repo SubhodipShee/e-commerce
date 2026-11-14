@@ -35,6 +35,7 @@ const getProductReviewController = require('../controller/review/getProductRevie
 const addToWishlistController = require('../controller/wishlist/addToWishlist')
 const viewWishlistController = require('../controller/wishlist/viewWishlist')
 const deleteWishlistController = require('../controller/wishlist/deleteWishlist')
+const dashboardSummaryController = require('../controller/dashboard/dashboardSummary')
 
 router.post("/signup",userSignUpController)
 router.post("/signin",userSignInController)
@@ -81,6 +82,9 @@ router.post("/product-review",getProductReviewController)
 router.post("/add-wishlist",authToken,addToWishlistController)
 router.get("/view-wishlist",authToken,viewWishlistController)
 router.post("/delete-wishlist",authToken,deleteWishlistController)
+
+//admin dashboard
+router.get("/dashboard",authToken,dashboardSummaryController)
 
 
 

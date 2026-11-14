@@ -133,6 +133,10 @@ const SummaryApi = {
     deleteWishlist : {
         url : `${backendDomin}/api/delete-wishlist`,
         method : 'post'
+    },
+    dashboard : {
+        url : `${backendDomin}/api/dashboard`,
+        method : 'get'
     }
 }
 
